@@ -51,7 +51,7 @@ class ProductController extends Controller
         // Retrieve the products with the required relationships
         $products = $products->with(['variants.options', 'defaultVariant'])->get();
 
-        // Format the products as needed
+        // Format the products
         $formattedProducts = $this->formatProducts($products);
 
         return response()->json($formattedProducts);
@@ -68,7 +68,6 @@ class ProductController extends Controller
 
             // Check if 'Size' and 'Color' options are present
             if (!$sizeOptions || !$colorOptions) {
-                // Log a warning or handle the missing options appropriately
                 continue; // Skip this product if options are missing
             }
 
@@ -78,7 +77,7 @@ class ProductController extends Controller
             // Randomly select a color
             $selectedColor = $colorOptions[array_rand($colorOptions)];
 
-            // Rest of your code remains the same
+            // format the product
             $formattedProduct = [
                 'id' => $product->id,
                 'title' => $product->title,
@@ -107,7 +106,7 @@ class ProductController extends Controller
 
     public function updateStockStatus(Product $product, $newStock)
     {
-        // Update the stock status logic...
+        // stock status logic...
         $product->defaultVariant->stock = $newStock;
         $product->defaultVariant->is_in_stock = $newStock > 0 ? true : false;
         $product->defaultVariant->save();

@@ -30,7 +30,6 @@ class ProductSeeder extends Seeder
                     'price' => 29.99,
                     'stock' => rand(0, 100),
                 ],
-                // Add more variations as needed
             ]);
         });
     }
